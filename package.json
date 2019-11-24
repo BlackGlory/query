@@ -1,0 +1,25 @@
+{
+  "name": "@blackglory/query",
+  "version": "0.1.0",
+  "main": "lib/query.js",
+  "types": "lib/query.d.ts",
+  "repository": "git@github.com:BlackGlory/query.git",
+  "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
+  "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "yarn clean && yarn build",
+    "test": "jest --coverage --config jest.config.json",
+    "debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand",
+    "clean": "rm -r lib",
+    "build": "tsc --project tsconfig.build.json",
+    "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "husky": "^3.1.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2"
+  }
+}
