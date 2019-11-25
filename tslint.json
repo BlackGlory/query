@@ -24,6 +24,7 @@
   , "no-string-throw": false
   , "unified-signatures": false
   , "no-conditional-assignment": false
+  , "interface-name": false
   }
 , "rulesDirectory": []
 }

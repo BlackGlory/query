@@ -148,7 +148,7 @@ test('query(css, [css, xpath, fn], css)', () => {
       <li>target</li>
     </ul>
   `
-  const res = query(
+  const res = query.call(
     'body'
   , [
       'div'
