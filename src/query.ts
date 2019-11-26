@@ -1,6 +1,5 @@
 // May replace constant by Prepack in future.
 
-// Ugly codes. TS1206 - decorators are not valid on functions.
 import { contextEntry, contextInject } from './context'
 
 type CSSSelector = string
@@ -8,39 +7,40 @@ type XPath = string
 type FunctionSelector = (parent: Element) => Iterable<Element> | Element | null
 type Selector = Selector[] | CSSSelector | XPath | FunctionSelector
 
-interface Context {
-  document: Document
-}
-
 function unique<T>(iterable: Iterable<T>): T[] {
   return [...new Set(iterable)]
 }
 
+function isIterable<T>(value: any): value is Iterable<T> {
+  return typeof value[Symbol.iterator] === 'function'
+}
+
+function isObject(value: any): value is { [index: string]: any } {
+  return value !== null && typeof value === 'object'
+}
+
 function isElement(value: any): value is Element {
-  return value !== null
-  && typeof value === 'object'
-  && value.nodeType === 1 // Node.ELEMENT_NODE
+  return isObject(value) && value.nodeType === 1 // Node.ELEMENT_NODE
 }
 
 function isDocument(value: any): value is Document {
-  return value !== null
-  && typeof value === 'object'
-  && value.nodeType === 9 // Node.DOCUMENT_NODE
+  return isObject(value) && value.nodeType === 9 // Node.DOCUMENT_NODE
 }
 
-const queryXPath = contextInject(function* <T extends Element>(this: Context, xpath: string, root: Element) {
-  const iterator = this.document.evaluate(xpath, root, null, 4 /* XPathResult.UNORDERED_NODE_ITERATOR_TYPE */, null)
+// Ugly codes. TS1206 - decorators are not valid on functions.
+const queryXPath = contextInject(function* <T extends Element>(this: Document, xpath: string, parent: Element) {
+  const iterator = this.evaluate(xpath, parent, null, 4 /* XPathResult.UNORDERED_NODE_ITERATOR_TYPE */, null)
   let value
   while (value = iterator.iterateNext()) {
     yield value as T
   }
 })
 
-const queryRound = contextInject(function (this: Context, root: Element, selector: Selector): Element[] {
+const queryRound = contextInject((parent: Element, selector: Selector): Element[] => {
   if (Array.isArray(selector)) {
-    return unique(selector.flatMap(x => queryRound(root, x)))
+    return unique(selector.flatMap(x => queryRound(parent, x)))
   } else if (selector instanceof Function) {
-    const res = selector(root)
+    const res = selector(parent)
     if (res === null) return []
     if (isElement(res)) return [res]
     return unique(res)
@@ -48,7 +48,7 @@ const queryRound = contextInject(function (this: Context, root: Element, selecto
     let error
     // CSS Selector
     try {
-      const res = root.querySelectorAll(selector)
+      const res = parent.querySelectorAll(selector)
       return [...res] // uniqued
     } catch (e) {
       error = e
@@ -56,7 +56,7 @@ const queryRound = contextInject(function (this: Context, root: Element, selecto
 
     // XPath
     try {
-      const res = queryXPath(selector, root)
+      const res = queryXPath(selector, parent)
       return [...res] // uniqued
     } catch (e) {
       error = e
@@ -66,24 +66,34 @@ const queryRound = contextInject(function (this: Context, root: Element, selecto
   }
 })
 
-const querySelectorAll = contextEntry(function (this: Context, parents: Element[], selectors: Selector[]) {
+// Ugly codes. TS1206 - decorators are not valid on functions.
+const querySelectorAll = contextEntry(function (this: Document, parents: Element[], selectors: Selector[]) {
   for (const selector of selectors) {
-    const nextParents: Element[] = []
-    for (const parent of parents) {
-      nextParents.push(...queryRound(parent, selector))
-    }
+    const nextParents: Element[] = parents.flatMap(parent => queryRound(parent, selector))
     parents = unique(nextParents)
     if (parents.length === 0) return []
   }
   return parents
 })
 
-export function query(root: Element | null, ...selectors: Selector[]): Element[]
+export function query(document: Document, parent: Element | null, ...selectors: Selector[]): Element[]
+export function query(document: Document, parents: Iterable<Element>, ...selectors: Selector[]): Element[]
+export function query(document: Document, ...selectors: Selector[]): Element[]
+export function query(parent: Element | null, ...selectors: Selector[]): Element[]
+export function query(parents: Iterable<Element>, ...selectors: Selector[]): Element[]
 export function query(...selectors: Selector[]): Element[]
-export function query(this: Context | null, ...args: any[]) {
-  if (args[0] === null) return []
-  const context = isDocument(this?.document) ? this! : { document }
-  const selectors: Selector[] = args[0] instanceof Element ? args.slice(1) : args
-  const parents: Element[] = args[0] instanceof Element ? [args[0]] : [context.document.documentElement]
-  return Reflect.apply(querySelectorAll, context, [parents, selectors])
+export function query(...args: any[]) {
+  let temp: any[]
+
+  const document = isDocument(args[0]) ? args.shift() : globalThis.document
+  const parents: Element[] =
+    args[0] === null
+    ? (args.shift(), [])
+    : isIterable<Element>(args[0]) && (temp = [...args[0]]).every(isElement)
+      ? (args.shift(), temp)
+      : isElement(args[0])
+        ? [args.shift()]
+        : [document.documentElement]
+  const selectors: Selector[] = args
+  return Reflect.apply(querySelectorAll, document, [parents, selectors])
 }
