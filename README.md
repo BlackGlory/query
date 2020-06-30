@@ -31,12 +31,12 @@ type SelectorResult =
 | void
 | null
 | undefined
-| HTMLElement
-| Iterable<HTMLElement>
+| Element
+| Iterable<Element>
 
 type Selector =
-| ((parent: HTMLElement) => SelectorResult)
-| ((this: Document, parent: HTMLElement) => SelectorResult)
+| ((parent: Element) => SelectorResult)
+| ((this: Document, parent: Element) => SelectorResult)
 | Selector[]
 
 function query<T extends Element>(this: void | Document, ...selectors: Selector[]): T[]
