@@ -1,4 +1,4 @@
-export function concat(strings: TemplateStringsArray, values: string[]) {
+export function concat(strings: TemplateStringsArray, values: string[]): string[] {
   const result = []
   for (let i = 0, len = values.length; i < len; i++) {
     result.push(strings[i])

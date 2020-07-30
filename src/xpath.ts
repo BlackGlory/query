@@ -6,7 +6,7 @@ export function xpath<T extends Element>(strings: TemplateStringsArray, ...value
   return function* (this: Document, parent: Node) {
     const iterator = this.evaluate(expression, parent, null, XPathResult.UNORDERED_NODE_ITERATOR_TYPE, null)
     let value
-    while (value = iterator.iterateNext()) {
+    while ((value = iterator.iterateNext()) !== null) {
       yield value as T
     }
   }

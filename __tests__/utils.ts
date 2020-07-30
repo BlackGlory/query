@@ -1,4 +1,4 @@
-export function toArray<T>(iterable: Iterable<T>, count: number = Infinity) {
+export function toArray<T>(iterable: Iterable<T>, count = Infinity): T[] {
   const result: T[] =[]
   for (const value of iterable) {
     if (count <= 0) break
