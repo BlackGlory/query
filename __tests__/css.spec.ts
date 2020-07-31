@@ -1,5 +1,6 @@
 import { css } from '@src/css'
 import { toArray } from '@test/utils'
+import 'jest-extended'
 import '@test/matchers'
 
 describe('function css(strings: TemplateStringsArray, ...values: string[]): (parent: ParentNode) => Iterable<Element>', () => {
