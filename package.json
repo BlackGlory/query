@@ -35,6 +35,8 @@
   "devDependencies": {
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-typescript": "^5.0.2",
     "@types/jest": "^26.0.7",
     "@types/jsdom": "^16.2.3",
@@ -50,5 +52,8 @@
     "ts-jest": "^26.1.4",
     "tscpaths": "^0.0.9",
     "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "@blackglory/types": "^0.1.2"
   }
 }

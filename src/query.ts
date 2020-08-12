@@ -1,3 +1,5 @@
+import { isIterable, isObject } from '@blackglory/types'
+
 type SelectorResult =
 | void
 | null
@@ -51,14 +53,6 @@ export function query<T extends Element>(this: void | Document, ...selectors: Se
   }
 }
 
-function isIterable<T>(val: any): val is Iterable<T> {
-  return val !== null && typeof val[Symbol.iterator] === 'function'
-}
-
 function isDocument(value: any): value is Document {
   return isObject(value) && value.nodeType === Node.DOCUMENT_NODE
-}
-
-function isObject(value: any): value is { [index: string]: any } {
-  return value !== null && typeof value === 'object'
 }
