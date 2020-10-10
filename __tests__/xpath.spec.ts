@@ -1,7 +1,7 @@
 import { xpath } from '@src/xpath'
 import { toArray } from '@test/utils'
 import 'jest-extended'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('xpath(strings: TemplateStringsArray, ...values: string[]): (this: Document, parent: Node & ParentNode) => Iterable<Element>', () => {
   it('return Function', () => {
