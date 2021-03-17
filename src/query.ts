@@ -1,4 +1,5 @@
-import { isIterable, isDocument } from '@blackglory/types'
+import { isIterable } from '@blackglory/types'
+import { isDocument } from 'extra-dom'
 
 type SelectorResult =
 | void
