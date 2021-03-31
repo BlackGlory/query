@@ -17,7 +17,7 @@ import { query, css, xpath } from '@blackglory/query'
 
 const elements = query(
   css`main`
-, xpath`//h2[text()="Title"]`
+, xpath`.//h2[text()="Title"]`
 , xpath`../div`
 )
 ```
@@ -28,7 +28,6 @@ const elements = query(
 
 ```ts
 type SelectorResult =
-| void
 | null
 | undefined
 | Element
@@ -39,17 +38,26 @@ type Selector =
 | ((this: Document, parent: Element) => SelectorResult)
 | Selector[]
 
-function query<T extends Element>(this: void | Document, ...selectors: Selector[]): T[]
+function query<T extends Element>(
+  this: void | Document
+, ...selectors: Selector[]
+): T[]
 ```
 
 ### css
 
 ```ts
-function css<T extends Element>(strings: TemplateStringsArray, ...values: string[]): (parent: ParentNode) => Iterable<T>
+function css<T extends Element>(
+  strings: TemplateStringsArray
+, ...values: string[]
+): (parent: ParentNode) => Iterable<T>
 ```
 
 ### xpath
 
 ```ts
-function xpath<T extends Element>(strings: TemplateStringsArray, ...values: string[]): (this: Document, parent: Node) => Iterable<T>
+function xpath<T extends Element>(
+  strings: TemplateStringsArray
+, ...values: string[]
+): (this: Document, parent: Node) => Iterable<T>
 ```
