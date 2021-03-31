@@ -1,4 +1,4 @@
-import { concat } from './shared/concat'
+import { concat } from '@utils/concat'
 
 export function css<T extends Element>(strings: TemplateStringsArray, ...values: string[]): (parent: ParentNode) => Iterable<T> {
   const selector = concat(strings, values).join('')

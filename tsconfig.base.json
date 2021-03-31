@@ -8,6 +8,8 @@
   , "baseUrl": "."
   , "paths": {
       "@src/*": ["src/*"]
+    , "@selectors/*": ["src/selectors/*"]
+    , "@utils/*": ["src/utils/*"]
     , "@test/*": ["__tests__/*"]
     }
   }

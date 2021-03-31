@@ -1,4 +1,4 @@
-import { concat } from './shared/concat'
+import { concat } from '@utils/concat'
 
 const UNORDERED_NODE_ITERATOR_TYPE = 'XPathResult' in globalThis
                                    ? XPathResult.UNORDERED_NODE_ITERATOR_TYPE

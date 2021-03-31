@@ -1,4 +1,4 @@
 export { query } from './query'
 
-export { css } from './css'
-export { xpath } from './xpath'
+export { css } from '@selectors/css'
+export { xpath } from '@selectors/xpath'
