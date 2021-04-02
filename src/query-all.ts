@@ -19,8 +19,7 @@ export function queryAll<T extends Node>(this: void | Document, ...args:
 
   if (isSelector(args[0])) {
     const [selector, ...selectors] = args
-    const root = context.documentElement
-    const parents = [root]
+    const parents = [context]
 
     return pipe.call(context, parents, selector, ...selectors) as T[]
   } else {

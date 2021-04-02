@@ -37,7 +37,7 @@ describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
 
       expect(result).toEqual([element])
       expect(selector1).toBeCalledTimes(1)
-      expect(selector1).toBeCalledWith(document.documentElement)
+      expect(selector1).toBeCalledWith(document)
       expect(selector2).toBeCalledTimes(1)
       expect(selector2).toBeCalledWith(element)
     })
@@ -53,7 +53,7 @@ describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
 
         expect(result).toEqual([])
         expect(selector1).toBeCalledTimes(1)
-        expect(selector1).toBeCalledWith(document.documentElement)
+        expect(selector1).toBeCalledWith(document)
         expect(selector2).not.toBeCalled()
       })
     })
@@ -69,7 +69,7 @@ describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
 
         expect(result).toEqual([element1])
         expect(selector1).toBeCalledTimes(1)
-        expect(selector1).toBeCalledWith(document.documentElement)
+        expect(selector1).toBeCalledWith(document)
         expect(selector2).toBeCalledTimes(2)
         expect(selector2).nthCalledWith(1, element1)
         expect(selector2).nthCalledWith(2, element2)
@@ -91,9 +91,9 @@ describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
 
       expect(result).toEqual([element])
       expect(selector1).toBeCalledTimes(1)
-      expect(selector1).toBeCalledWith(document.documentElement)
+      expect(selector1).toBeCalledWith(document)
       expect(selector2).toBeCalledTimes(1)
-      expect(selector2).toBeCalledWith(document.documentElement)
+      expect(selector2).toBeCalledWith(document)
       expect(selector3).toBeCalledTimes(1)
       expect(selector3).toBeCalledWith(element)
     })
@@ -107,7 +107,7 @@ describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
     queryAll.bind(doc)(selector)
 
     expect(selector).toBeCalledTimes(1)
-    expect(selector).toBeCalledWith(doc.documentElement)
+    expect(selector).toBeCalledWith(doc)
     expect(self).toBe(doc)
 
     function setSelf(this: unknown) {
