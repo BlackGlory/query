@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/BlackGlory/query/compare/v0.3.13...v0.4.0) (2021-04-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* rewrite
+
+### Features
+
+* rewrite ([08309dc](https://github.com/BlackGlory/query/commit/08309dc8de59bfa60be06edad07525dfffe3b31c))
+
 ### [0.3.13](https://github.com/BlackGlory/query/compare/v0.3.12...v0.3.13) (2021-03-17)
 
 ### [0.3.12](https://github.com/BlackGlory/query/compare/v0.3.11...v0.3.12) (2021-02-25)
