@@ -5,10 +5,10 @@ import { getError } from 'return-style'
 import 'jest-extended'
 import '@blackglory/jest-matchers'
 
-describe('xpath(strings: TemplateStringsArray, ...values: string[]): (this: Document, node: Node) => Iterable<Node>', () => {
+describe('xpath(expression: string): (this: Document, node: Node) => Iterable<Node>', () => {
   describe('expression does not starts with dot', () => {
     it('throws a Error', () => {
-      const err = getError(() => xpath`//*[@id="test"]`)
+      const err = getError(() => xpath('//*[@id="test"]'))
 
       expect(err).toBeInstanceOf(Error)
     })
@@ -22,7 +22,7 @@ describe('xpath(strings: TemplateStringsArray, ...values: string[]): (this: Docu
     `.trim())[0] as Element
     const target = root.querySelector('#test')
 
-    const result = xpath`.//*[@id="test"]`.call(document, root)
+    const result = xpath('.//*[@id="test"]').call(document, root)
     const arrResult = toArray(result)
 
     expect(result).toBeIterable()

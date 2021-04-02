@@ -71,15 +71,21 @@ function queryAll<T extends Node>(
 
 ```ts
 function css<T extends Element>(
+  selector: string
+): (node: Node) => Iterable<T>
+function css<T extends Element>(
   strings: TemplateStringsArray
 , ...values: string[]
-): (node: ParentNode) => NodeListOf<T>
+): (node: Node) => Iterable<T>
 ```
 
 #### xpath
 
 ```ts
-function xpath<T extends Node>(
+export function xpath<T extends Node>(
+  expression: string
+): (this: Document, node: Node) => Iterable<T>
+export function xpath<T extends Node>(
   strings: TemplateStringsArray
 , ...values: string[]
 ): (this: Document, node: Node) => Iterable<T>
