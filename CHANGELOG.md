@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/BlackGlory/query/compare/v0.4.0...v0.4.1) (2021-04-02)
+
+
+### Bug Fixes
+
+* replace documentElement with document ([9e366bc](https://github.com/BlackGlory/query/commit/9e366bc8af33b34a3554d9ff3adab21412023852))
+
 ## [0.4.0](https://github.com/BlackGlory/query/compare/v0.3.13...v0.4.0) (2021-04-02)
 
 
