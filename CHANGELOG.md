@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.2](https://github.com/BlackGlory/query/compare/v0.4.1...v0.4.2) (2021-04-02)
+
+
+### Features
+
+* add normal function signatures for css, xpath ([4dbf4d4](https://github.com/BlackGlory/query/commit/4dbf4d456c387b97288fbf2af6e8c8632fd971ca))
+
 ### [0.4.1](https://github.com/BlackGlory/query/compare/v0.4.0...v0.4.1) (2021-04-02)
 
 
