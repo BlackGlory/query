@@ -1,20 +1,23 @@
 import { css } from '@selectors/css'
 import { toArray } from '@test/utils'
+import { parse } from 'extra-dom'
 import 'jest-extended'
 import '@blackglory/jest-matchers'
 
-describe('function css(strings: TemplateStringsArray, ...values: string[]): (parent: ParentNode) => Iterable<Element>', () => {
+describe('css<T extends Element>(strings: TemplateStringsArray, ...values: string[]): (node: Node) => Iterable<T>', () => {
   it('return Function', () => {
-    document.body.innerHTML = `
-      <div id="test"></div>
-    `
+    const root = parse(`
+      <div>
+        <div id="test">
+        </div>
+      </div>
+    `.trim())[0] as Element
+    const target = root.querySelector('#test')
 
-    const selector = css`#test`
-    const result = selector(document)
+    const result = css`#test`(root)
     const arrResult = toArray(result)
 
-    expect(selector).toBeFunction()
     expect(result).toBeIterable()
-    expect(arrResult).toEqual([document.getElementById('test')])
+    expect(arrResult).toEqual([target])
   })
 })

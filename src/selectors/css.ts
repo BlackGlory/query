@@ -1,6 +1,16 @@
 import { concat } from '@utils/concat'
+import { isParentNode } from 'extra-dom'
 
-export function css<T extends Element>(strings: TemplateStringsArray, ...values: string[]): (parent: ParentNode) => Iterable<T> {
+export function css<T extends Element>(
+  strings: TemplateStringsArray
+, ...values: string[]
+): (node: Node) => Iterable<T> {
   const selector = concat(strings, values).join('')
-  return parent => Array.from(parent.querySelectorAll(selector))
+  return node => {
+    if (isParentNode(node)) {
+      return node.querySelectorAll(selector)
+    } else {
+      return []
+    }
+  }
 }

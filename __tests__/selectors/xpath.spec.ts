@@ -1,20 +1,31 @@
 import { xpath } from '@selectors/xpath'
 import { toArray } from '@test/utils'
+import { parse } from 'extra-dom'
+import { getError } from 'return-style'
 import 'jest-extended'
 import '@blackglory/jest-matchers'
 
-describe('xpath(strings: TemplateStringsArray, ...values: string[]): (this: Document, parent: Node & ParentNode) => Iterable<Element>', () => {
-  it('return Function', () => {
-    document.body.innerHTML = `
-      <div id="test"></div>
-    `
+describe('xpath(strings: TemplateStringsArray, ...values: string[]): (this: Document, node: Node) => Iterable<Node>', () => {
+  describe('expression does not starts with dot', () => {
+    it('throws a Error', () => {
+      const err = getError(() => xpath`//*[@id="test"]`)
 
-    const selector = xpath`//*[@id="test"]`
-    const result = selector.bind(document)(document)
+      expect(err).toBeInstanceOf(Error)
+    })
+  })
+
+  it('return Iterable', () => {
+    const root = parse(`
+      <div>
+        <div id="test"></div>
+      </div>
+    `.trim())[0] as Element
+    const target = root.querySelector('#test')
+
+    const result = xpath`.//*[@id="test"]`.call(document, root)
     const arrResult = toArray(result)
 
-    expect(selector).toBeFunction()
     expect(result).toBeIterable()
-    expect(arrResult).toEqual([document.getElementById('test')])
+    expect(arrResult).toEqual([target])
   })
 })

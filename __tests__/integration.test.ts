@@ -4,11 +4,12 @@ test('css', () => {
   document.body.innerHTML = `
     <div id="test"></div>
   `
+
   const result = query(
     css`div`
   )
 
-  expect(result).toEqual([document.getElementById('test')])
+  expect(result).toEqual(document.getElementById('test'))
 })
 
 test('xpath', () => {
@@ -18,21 +19,9 @@ test('xpath', () => {
   `
 
   const result = query(
-    xpath`//h2[text()="Test"]`
+    xpath`.//h2[text()="Test"]`
   , xpath`../p`
   )
 
-  expect(result).toEqual([document.getElementById('test')])
-})
-
-test('custom', () => {
-  document.body.innerHTML = `
-    <div id="test"></div>
-  `
-
-  const result = query(
-    (parent: Element) => parent.querySelector('div')
-  )
-
-  expect(result).toEqual([document.getElementById('test')])
+  expect(result).toEqual(document.getElementById('test'))
 })

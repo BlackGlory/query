@@ -9,6 +9,7 @@ module.exports = {
   , 'plugin:@typescript-eslint/recommended'
   ]
 , rules: {
-    '@typescript-eslint/no-inferrable-types': 'off'
+    'no-constant-condition': 'off'
+  , '@typescript-eslint/no-inferrable-types': 'off'
   }
 }

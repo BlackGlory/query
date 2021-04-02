@@ -1,52 +1,23 @@
-import { isIterable, isNull, isUndefined } from '@blackglory/types'
-import { isDocument } from 'extra-dom'
+import { ISelector } from './types'
+import { queryAll } from './query-all'
 
-type SelectorResult =
-| null
-| undefined
-| Element
-| Iterable<Element>
-
-type Selector =
-| ((parent: Element) => SelectorResult)
-| ((this: Document, parent: Element) => SelectorResult)
-| Selector[]
-
-export function query<T extends Element>(this: void | Document, ...selectors: Selector[]): T[] {
-  const context = isDocument(this) ? this : document
-
-  return pipe([context.documentElement], selectors) as T[]
-
-  function pipe(parents: Element[], selectors: Selector[]): Element[] {
-    let results = parents
-    for (const selector of selectors) {
-      results = Array.from(process(results, selector))
-      if (results.length === 0) return []
-    }
-    return results
-  }
-
-  function process(parents: Element[], selector: Selector): Set<Element> {
-    const results = new Set<Element>()
-    if (Array.isArray(selector)) {
-      for (const sub of selector) {
-        const result = process(parents, sub)
-        for (const element of result) {
-          results.add(element)
-        }
-      }
-    } else {
-      for (const parent of parents) {
-        const result = Reflect.apply<SelectorResult>(selector, context, [parent])
-        if (isNull(result) || isUndefined(result)) {
-          continue
-        } else if (isIterable<Element>(result)) {
-          for (const element of result) results.add(element)
-        } else {
-          results.add(result)
-        }
-      }
-    }
-    return results
+export function query<T extends Node>(
+  this: void | Document
+, root: Node | Iterable<Node>
+, ...selectors: ISelector[]
+): T | null
+export function query<T extends Node>(
+  this: void | Document
+, ...selectors: [ISelector, ...ISelector[]]
+): T | null
+export function query<T extends Node>(this: void | Document, ...args:
+| [root: Node | Iterable<Node>, ...selectors: ISelector[]]
+| [...selectors: [ISelector, ...ISelector[]]]
+): T | null {
+  const results = queryAll.apply(this, args as Parameters<typeof queryAll>)
+  if (results.length > 0) {
+    return results[0] as T
+  } else {
+    return null
   }
 }
