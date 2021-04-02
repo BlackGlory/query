@@ -6,6 +6,8 @@ import { terser } from 'rollup-plugin-terser'
 import analyze from 'rollup-plugin-analyzer'
 import replace from '@rollup/plugin-replace'
 
+const UMD_NAME = 'Query'
+
 export default [
   ...createOptions({
     directory: 'es2015'
@@ -59,7 +61,7 @@ function createOptions({ directory, target }) {
     , {
         file: `dist/${directory}/${name}.umd.js`
       , format: 'umd'
-      , name: 'Query'
+      , name: UMD_NAME
       , sourcemap: true
       }
     ]
@@ -76,7 +78,7 @@ function createOptions({ directory, target }) {
     , {
         file: `dist/${directory}/${name}.umd.min.js`
       , format: 'umd'
-      , name: 'Query'
+      , name: UMD_NAME
       , sourcemap: true
       }
     ]
