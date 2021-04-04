@@ -3,11 +3,11 @@ import { isParentNode } from 'extra-dom'
 import { isString } from '@blackglory/types'
 
 export function css<T extends Element>(
-  selector: string
-): (node: Node) => Iterable<T>
-export function css<T extends Element>(
   strings: TemplateStringsArray
 , ...values: string[]
+): (node: Node) => Iterable<T>
+export function css<T extends Element>(
+  selector: string
 ): (node: Node) => Iterable<T>
 export function css<T extends Element>(...args:
 | [selector: string]

@@ -8,11 +8,11 @@ const UNORDERED_NODE_ITERATOR_TYPE =
   : 4
 
 export function xpath<T extends Node>(
-  expression: string
-): (this: Document, node: Node) => Iterable<T>
-export function xpath<T extends Node>(
   strings: TemplateStringsArray
 , ...values: string[]
+): (this: Document, node: Node) => Iterable<T>
+export function xpath<T extends Node>(
+  expression: string
 ): (this: Document, node: Node) => Iterable<T>
 export function xpath<T extends Node>(...args:
 | [expression: string]
