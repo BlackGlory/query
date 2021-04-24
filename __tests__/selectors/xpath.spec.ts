@@ -1,5 +1,5 @@
 import { xpath } from '@selectors/xpath'
-import { toArray } from '@test/utils'
+import { toArray } from 'iterable-operator'
 import { parse } from 'extra-dom'
 import { getError } from 'return-style'
 import 'jest-extended'
