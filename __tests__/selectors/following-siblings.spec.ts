@@ -21,7 +21,7 @@ describe('followingSiblings(predicate: (node: ChildNode, nth: number) => unknown
   })
 
   describe('sibling does not exist', () => {
-    it('return null', () => {
+    it('return undefined', () => {
       const nodes = parse('<div>0</div> 1 <div>2</div>')
       const predicate = jest.fn().mockReturnValue(false)
 

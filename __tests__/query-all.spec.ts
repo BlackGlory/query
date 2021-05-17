@@ -3,9 +3,9 @@ import { ISelector } from '@src/types'
 import { JSDOM } from 'jsdom'
 
 describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
-  describe('selector returns null', () => {
+  describe('selector returns undefined', () => {
     it('terminate and return an empty array', () => {
-      const selector1 = jest.fn().mockReturnValue(null)
+      const selector1 = jest.fn().mockReturnValue(undefined)
       const selector2 = jest.fn()
 
       const result = queryAll(selector1, selector2)
@@ -81,7 +81,7 @@ describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
     it('pipe sub-selectors and rturn the results', () => {
       const element = document.createElement('div')
       const selector1 = jest.fn().mockReturnValue(element)
-      const selector2 = jest.fn().mockReturnValue(null)
+      const selector2 = jest.fn().mockReturnValue(undefined)
       const selector3 = jest.fn().mockReturnValue(element)
 
       const result = queryAll(

@@ -1,7 +1,7 @@
 import { nthAncestor } from '@selectors/nth-ancestor'
 import { parse } from 'extra-dom'
 
-describe('nthAncestor(nth: numberr): (node: Node) => T | null', () => {
+describe('nthAncestor(nth: numberr): (node: Node) => T | undefined', () => {
   describe('ancestor exists', () => {
     it('returns Node', () => {
       const root = parse(`
@@ -28,7 +28,7 @@ describe('nthAncestor(nth: numberr): (node: Node) => T | null', () => {
   })
 
   describe('ancestor does not exist', () => {
-    it('return null', () => {
+    it('return undefined', () => {
       const root = parse(`
         <div>
           <div id="c">
@@ -47,7 +47,7 @@ describe('nthAncestor(nth: numberr): (node: Node) => T | null', () => {
 
       const result = nthAncestor(5)(a)
 
-      expect(result).toBeNull()
+      expect(result).toBeUndefined()
     })
   })
 })

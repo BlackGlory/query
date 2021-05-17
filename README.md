@@ -44,11 +44,11 @@ function query<T extends Node>(
   this: void | Document
 , root: Node | Iterable<Node>
 , ...selectors: ISelector[]
-): T | null
+): T | undefined
 function query<T extends Node>(
   this: void | Document
 , ...selectors: [ISelector, ...ISelector[]]
-): T | null
+): T | undefined
 ```
 
 ### queryAll
@@ -96,13 +96,13 @@ export function xpath<T extends Node>(
 ```ts
 function ancestor<T extends Node & ParentNode>(
   predicate: (node: Node, nth: number) => unknown = () => true
-): (node: Node) => T | null
+): (node: Node) => T | undefined
 ```
 
 #### nthAncestor
 
 ```ts
-function nthAncestor<T extends Node>(nth: number): (node: Node) => T | null
+function nthAncestor<T extends Node>(nth: number): (node: Node) => T | undefined
 ```
 
 #### nextSibling
@@ -110,7 +110,7 @@ function nthAncestor<T extends Node>(nth: number): (node: Node) => T | null
 ```ts
 function nextSibling<T extends ChildNode>(
   predicate: (node: Node, nth: number) => unknown = () => true
-): (node: Node) => T | null
+): (node: Node) => T | undefined
 ```
 
 #### previousSibling
@@ -118,19 +118,23 @@ function nextSibling<T extends ChildNode>(
 ```ts
 function previousSibling<T extends ChildNode>(
   predicate: (node: Node, nth: number) => unknown = () => true
-): (node: Node) => T | null
+): (node: Node) => T | undefined
 ```
 
 #### nextNthSibling
 
 ```ts
-function nextNthSibling<T extends ChildNode>(nth: number): (node: Node) => T | null
+function nextNthSibling<T extends ChildNode>(
+  nth: number
+): (node: Node) => T | undefined
 ```
 
 #### previousNthSibling
 
 ```ts
-function previousNthSibling<T extends ChildNode>(nth: number): (node: Node) => T | null
+function previousNthSibling<T extends ChildNode>(
+  nth: number
+): (node: Node) => T | undefined
 ```
 
 #### nextElementSibling
@@ -138,7 +142,7 @@ function previousNthSibling<T extends ChildNode>(nth: number): (node: Node) => T
 ```ts
 function nextElementSibling<T extends Element>(
   predicate: (node: Node, nth: number) => unknown = () => true
-): (node: Node) => T | null
+): (node: Node) => T | undefined
 ```
 
 #### previousElementSibling
@@ -146,19 +150,23 @@ function nextElementSibling<T extends Element>(
 ```ts
 function previousElementSibling<T extends Element>(
   predicate: (node: Node, nth: number) => unknown = () => true
-): (node: Node) => T | null
+): (node: Node) => T | undefined
 ```
 
 #### nextNthElementSibling
 
 ```ts
-function nextNthElementSibling<T extends Element>(nth: number): (node: Node) => T | null
+function nextNthElementSibling<T extends Element>(
+  nth: number
+): (node: Node) => T | undefined
 ```
 
 #### previousNthElementSibling
 
 ```ts
-function previousNthElementSibling<T extends Element>(nth: number): (node: Node) => T | null
+function previousNthElementSibling<T extends Element>(
+  nth: number
+): (node: Node) => T | undefined
 ```
 
 #### followingSiblings

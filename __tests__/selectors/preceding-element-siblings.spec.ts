@@ -21,7 +21,7 @@ describe('precedingElementSiblings(predicate: (node: ChildNode, nth: number) => 
   })
 
   describe('sibling does not exist', () => {
-    it('return null', () => {
+    it('return undefined', () => {
       const nodes = parse('<div>0</div>.<div>1</div>.<div>2</div>')
       const predicate = jest.fn().mockReturnValue(false)
 

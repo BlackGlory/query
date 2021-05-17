@@ -1,7 +1,7 @@
 import { previousElementSibling } from '@selectors/previous-element-sibling'
 import { parse } from 'extra-dom'
 
-describe('previousElementSibling(predicate: (node: Node, nth: number) => unknown): (node: Node) => T | null', () => {
+describe('previousElementSibling(predicate: (node: Node, nth: number) => unknown): (node: Node) => T | undefined', () => {
   describe('sibling exists', () => {
     it('return Node', () => {
       const nodes = parse('<div>2</div>.<div>1</div>.<div>0</div>')
@@ -17,13 +17,13 @@ describe('previousElementSibling(predicate: (node: Node, nth: number) => unknown
   })
 
   describe('sibling does not exist', () => {
-    it('return null', () => {
+    it('return undefined', () => {
       const nodes = parse('<div>2</div>.<div>1</div>.<div>0</div>')
       const predicate = jest.fn().mockReturnValue(false)
 
       const result = previousElementSibling(predicate)(nodes[4])
 
-      expect(result).toBeNull()
+      expect(result).toBeUndefined()
       expect(predicate).toBeCalledTimes(2)
       expect(predicate).nthCalledWith(1, nodes[2], 1)
       expect(predicate).nthCalledWith(2, nodes[0], 2)

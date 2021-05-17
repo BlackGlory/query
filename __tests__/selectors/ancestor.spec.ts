@@ -1,7 +1,7 @@
 import { ancestor } from '@selectors/ancestor'
 import { parse } from 'extra-dom'
 
-describe('ancestor(predicate: (node: Node, nth: number) => unknown): (node: Node) => T | null', () => {
+describe('ancestor(predicate: (node: Node, nth: number) => unknown): (node: Node) => T | undefined', () => {
   describe('ancestor exists', () => {
     it('return Node', () => {
       const root = parse(`
@@ -32,7 +32,7 @@ describe('ancestor(predicate: (node: Node, nth: number) => unknown): (node: Node
   })
 
   describe('ancestor does not exist', () => {
-    it('return null', () => {
+    it('return undefined', () => {
       const root = parse(`
         <div>3
           <div id="c">2
@@ -53,7 +53,7 @@ describe('ancestor(predicate: (node: Node, nth: number) => unknown): (node: Node
 
       const result = ancestor(predicate)(a)
 
-      expect(result).toBeNull()
+      expect(result).toBeUndefined()
       // `parse` creates a container for `Node[]`,
       // so `predicate` will be called 4 times.
       expect(predicate).toBeCalledTimes(4)

@@ -1,7 +1,7 @@
 import { nextSibling } from '@selectors/next-sibling'
 import { parse } from 'extra-dom'
 
-describe('nextSibling(predicate: (node: Node, nth: number) => unknown): (node: Node) => T | null', () => {
+describe('nextSibling(predicate: (node: Node, nth: number) => unknown): (node: Node) => T | undefined', () => {
   describe('sibling exists', () => {
     it('return Node', () => {
       const nodes = parse('<div>0</div>1<div>2</div>')
@@ -17,13 +17,13 @@ describe('nextSibling(predicate: (node: Node, nth: number) => unknown): (node: N
   })
 
   describe('sibling does not exist', () => {
-    it('return null', () => {
+    it('return undefined', () => {
       const nodes = parse('<div>0</div>1<div>2</div>')
       const predicate = jest.fn().mockReturnValue(false)
 
       const result = nextSibling(predicate)(nodes[0])
 
-      expect(result).toBeNull()
+      expect(result).toBeUndefined()
       expect(predicate).toBeCalledTimes(2)
       expect(predicate).nthCalledWith(1, nodes[1], 1)
       expect(predicate).nthCalledWith(2, nodes[2], 2)
