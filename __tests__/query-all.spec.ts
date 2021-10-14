@@ -1,3 +1,8 @@
+// https://github.com/jsdom/jsdom/issues/2524#issuecomment-902027138
+import { TextEncoder, TextDecoder } from 'util'
+globalThis.TextEncoder = TextEncoder
+globalThis.TextDecoder = TextDecoder as typeof globalThis.TextDecoder
+
 import { queryAll } from '@src/query-all'
 import { ISelector } from '@src/types'
 import { JSDOM } from 'jsdom'
