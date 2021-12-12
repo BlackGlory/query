@@ -7,8 +7,7 @@ export function previousElementSibling<T extends Element>(
     let i = 0
     return findInPrecedingSiblingNodes(
       node
-    , node => isElement(node)
-           && predicate(node, ++i)
+    , node => isElement(node) && predicate(node, ++i)
     ) as T | undefined
   }
 }

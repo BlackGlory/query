@@ -9,8 +9,7 @@ export function followingElementSiblings<T extends Element>(
     while (true) {
       const siblingNode = currentNode.nextSibling
       if (siblingNode) {
-        if (isElement(siblingNode)
-        &&  predicate(siblingNode, ++i)) {
+        if (isElement(siblingNode) && predicate(siblingNode, ++i)) {
           yield siblingNode as T
         }
         currentNode = siblingNode
