@@ -1,4 +1,4 @@
-import { isIterable, isNull, isUndefined, isFunction } from '@blackglory/types'
+import { isArray, isIterable, isNull, isUndefined, isFunction } from '@blackglory/types'
 import { isDocument } from 'extra-dom'
 import { ISelector } from './types'
 
@@ -33,7 +33,7 @@ export function queryAll<T extends Node>(this: void | Document, ...args:
 function isSelector(val: unknown): val is ISelector {
   if (isFunction(val)) {
     return true
-  } else if (Array.isArray(val)) {
+  } else if (isArray(val)) {
     return val.every(isFunction)
   } else {
     return false
@@ -63,7 +63,7 @@ function process(
 ): Set<Node> {
   const results = new Set<Node>()
 
-  if (Array.isArray(selector)) {
+  if (isArray(selector)) {
     for (const subSelector of selector) {
       const result = process.call(this, parents, subSelector)
       for (const node of result) {
