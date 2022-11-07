@@ -1,6 +1,6 @@
 import { concat } from '@utils/concat'
 import { assert } from '@blackglory/errors'
-import { isString } from '@blackglory/types'
+import { isString } from 'extra-utils'
 
 const UNORDERED_NODE_ITERATOR_TYPE =
   'XPathResult' in globalThis

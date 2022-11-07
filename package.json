@@ -7,7 +7,9 @@
     "css",
     "xpath"
   ],
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/es2018/index.js",
   "types": "lib/es2018/index.d.ts",
   "repository": "git@github.com:BlackGlory/query.git",
@@ -60,7 +62,8 @@
   },
   "dependencies": {
     "@blackglory/errors": "^1.1.2",
-    "@blackglory/types": "^0.5.2",
-    "extra-dom": "^0.4.4"
+    "@blackglory/prelude": "^0.1.8",
+    "extra-dom": "^0.4.4",
+    "extra-utils": "^3.3.0"
   }
 }

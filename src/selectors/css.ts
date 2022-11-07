@@ -1,6 +1,6 @@
 import { concat } from '@utils/concat'
 import { isParentNode } from 'extra-dom'
-import { isString } from '@blackglory/types'
+import { isString } from 'extra-utils'
 
 export function css<T extends Element>(
   strings: TemplateStringsArray
