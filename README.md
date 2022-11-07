@@ -1,9 +1,7 @@
 # query
-
 A module for querying elements from pages.
 
 ## Install
-
 ```sh
 npm install --save @blackglory/query
 # or
@@ -11,7 +9,6 @@ yarn add @blackglory/query
 ```
 
 ## Usage
-
 ```ts
 import { query, css, xpath } from '@blackglory/query'
 
@@ -23,7 +20,6 @@ const elements = query(
 ```
 
 ## API
-
 ```ts
 type ISelectorResult =
 | null
@@ -38,7 +34,6 @@ type ISelector =
 ```
 
 ### query
-
 ```ts
 function query<T extends Node>(
   this: void | Document
@@ -52,7 +47,6 @@ function query<T extends Node>(
 ```
 
 ### queryAll
-
 ```ts
 function queryAll<T extends Node>(
   this: void | Document
@@ -66,9 +60,7 @@ function queryAll<T extends Node>(
 ```
 
 ### Selectors
-
 #### css
-
 ```ts
 function css<T extends Element>(
   strings: TemplateStringsArray
@@ -80,19 +72,17 @@ function css<T extends Element>(
 ```
 
 #### xpath
-
 ```ts
-export function xpath<T extends Node>(
+function xpath<T extends Node>(
   strings: TemplateStringsArray
 , ...values: string[]
 ): (this: Document, node: Node) => Iterable<T>
-export function xpath<T extends Node>(
+function xpath<T extends Node>(
   expression: string
 ): (this: Document, node: Node) => Iterable<T>
 ```
 
 #### ancestor
-
 ```ts
 function ancestor<T extends Node & ParentNode>(
   predicate: (node: Node, nth: number) => unknown = () => true
@@ -100,13 +90,11 @@ function ancestor<T extends Node & ParentNode>(
 ```
 
 #### nthAncestor
-
 ```ts
 function nthAncestor<T extends Node>(nth: number): (node: Node) => T | undefined
 ```
 
 #### nextSibling
-
 ```ts
 function nextSibling<T extends ChildNode>(
   predicate: (node: Node, nth: number) => unknown = () => true
@@ -114,7 +102,6 @@ function nextSibling<T extends ChildNode>(
 ```
 
 #### previousSibling
-
 ```ts
 function previousSibling<T extends ChildNode>(
   predicate: (node: Node, nth: number) => unknown = () => true
@@ -122,7 +109,6 @@ function previousSibling<T extends ChildNode>(
 ```
 
 #### nextNthSibling
-
 ```ts
 function nextNthSibling<T extends ChildNode>(
   nth: number
@@ -130,7 +116,6 @@ function nextNthSibling<T extends ChildNode>(
 ```
 
 #### previousNthSibling
-
 ```ts
 function previousNthSibling<T extends ChildNode>(
   nth: number
@@ -138,7 +123,6 @@ function previousNthSibling<T extends ChildNode>(
 ```
 
 #### nextElementSibling
-
 ```ts
 function nextElementSibling<T extends Element>(
   predicate: (node: Node, nth: number) => unknown = () => true
@@ -146,7 +130,6 @@ function nextElementSibling<T extends Element>(
 ```
 
 #### previousElementSibling
-
 ```ts
 function previousElementSibling<T extends Element>(
   predicate: (node: Node, nth: number) => unknown = () => true
@@ -154,7 +137,6 @@ function previousElementSibling<T extends Element>(
 ```
 
 #### nextNthElementSibling
-
 ```ts
 function nextNthElementSibling<T extends Element>(
   nth: number
@@ -162,7 +144,6 @@ function nextNthElementSibling<T extends Element>(
 ```
 
 #### previousNthElementSibling
-
 ```ts
 function previousNthElementSibling<T extends Element>(
   nth: number
@@ -170,7 +151,6 @@ function previousNthElementSibling<T extends Element>(
 ```
 
 #### followingSiblings
-
 ```ts
 function followingSiblings<T extends ChildNode>(
   predicate: (node: ChildNode, nth: number) => unknown = () => true
@@ -178,7 +158,6 @@ function followingSiblings<T extends ChildNode>(
 ```
 
 #### precedingSiblings
-
 ```ts
 function precedingSiblings<T extends ChildNode>(
   predicate: (node: ChildNode, nth: number) => unknown = () => true
@@ -186,7 +165,6 @@ function precedingSiblings<T extends ChildNode>(
 ```
 
 #### followingElementSiblings
-
 ```ts
 function followingElementSiblings<T extends Element>(
   predicate: (node: Element, nth: number) => unknown = () => true
@@ -194,7 +172,6 @@ function followingElementSiblings<T extends Element>(
 ```
 
 #### precedingElementSibling
-
 ```ts
 function precedingElementSibling<T extends Element>(
   predicate: (node: Element, nth: number) => unknown = () => true
