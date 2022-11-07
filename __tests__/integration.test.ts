@@ -1,3 +1,4 @@
+import '@test/polyfill'
 import { query, css, xpath } from '@src/index'
 
 test('css', () => {

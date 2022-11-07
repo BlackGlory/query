@@ -1,3 +1,4 @@
+import '@test/polyfill'
 import { xpath } from '@selectors/xpath'
 import { toArray } from 'iterable-operator'
 import { parse } from 'extra-dom'

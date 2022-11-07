@@ -1,3 +1,4 @@
+import '@test/polyfill'
 import { previousElementSibling } from '@selectors/previous-element-sibling'
 import { parse } from 'extra-dom'
 

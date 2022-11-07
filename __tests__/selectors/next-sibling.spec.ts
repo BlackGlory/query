@@ -1,3 +1,4 @@
+import '@test/polyfill'
 import { nextSibling } from '@selectors/next-sibling'
 import { parse } from 'extra-dom'
 

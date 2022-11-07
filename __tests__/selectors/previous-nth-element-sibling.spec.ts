@@ -1,3 +1,4 @@
+import '@test/polyfill'
 import { previousNthElementSibling } from '@selectors/previous-nth-element-sibling'
 import { parse } from 'extra-dom'
 

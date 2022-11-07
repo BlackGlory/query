@@ -1,3 +1,4 @@
+import '@test/polyfill'
 import { css } from '@selectors/css'
 import { toArray } from 'iterable-operator'
 import { parse } from 'extra-dom'

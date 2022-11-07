@@ -1,3 +1,4 @@
+import '@test/polyfill'
 import { ancestor } from '@selectors/ancestor'
 import { parse } from 'extra-dom'
 

@@ -1,3 +1,4 @@
+import '@test/polyfill'
 import { followingSiblings } from '@selectors/following-siblings'
 import { parse } from 'extra-dom'
 import { toArray } from 'iterable-operator'
