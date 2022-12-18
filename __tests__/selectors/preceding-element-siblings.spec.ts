@@ -2,7 +2,6 @@ import '@test/polyfill'
 import { precedingElementSiblings } from '@selectors/preceding-element-siblings'
 import { parse } from 'extra-dom'
 import { toArray } from 'iterable-operator'
-import '@blackglory/jest-matchers'
 
 describe('precedingElementSiblings(predicate: (node: ChildNode, nth: number) => unknown): (node: Node) => Iterable<T>', () => {
   describe('sibling exists', () => {
@@ -10,11 +9,10 @@ describe('precedingElementSiblings(predicate: (node: ChildNode, nth: number) => 
       const nodes = parse('<div>0</div>.<div>1</div>.<div>2</div>')
       const predicate = jest.fn().mockReturnValueOnce(false).mockReturnValueOnce(true)
 
-      const result = precedingElementSiblings(predicate)(nodes[4])
-      const arrResult = toArray(result)
+      const iter = precedingElementSiblings(predicate)(nodes[4])
+      const result = toArray(iter)
 
-      expect(result).toBeIterable()
-      expect(arrResult).toEqual([nodes[0]])
+      expect(result).toEqual([nodes[0]])
       expect(predicate).toBeCalledTimes(2)
       expect(predicate).nthCalledWith(1, nodes[2], 1)
       expect(predicate).nthCalledWith(2, nodes[0], 2)
@@ -26,11 +24,10 @@ describe('precedingElementSiblings(predicate: (node: ChildNode, nth: number) => 
       const nodes = parse('<div>0</div>.<div>1</div>.<div>2</div>')
       const predicate = jest.fn().mockReturnValue(false)
 
-      const result = precedingElementSiblings(predicate)(nodes[4])
-      const arrResult = toArray(result)
+      const iter = precedingElementSiblings(predicate)(nodes[4])
+      const result = toArray(iter)
 
-      expect(result).toBeIterable()
-      expect(arrResult).toEqual([])
+      expect(result).toEqual([])
       expect(predicate).toBeCalledTimes(2)
       expect(predicate).nthCalledWith(1, nodes[2], 1)
       expect(predicate).nthCalledWith(2, nodes[0], 2)

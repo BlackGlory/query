@@ -3,8 +3,6 @@ import { xpath } from '@selectors/xpath'
 import { toArray } from 'iterable-operator'
 import { parse } from 'extra-dom'
 import { getError } from 'return-style'
-import 'jest-extended'
-import '@blackglory/jest-matchers'
 
 describe('xpath(expression: string): (this: Document, node: Node) => Iterable<Node>', () => {
   describe('expression does not starts with dot', () => {
@@ -23,10 +21,9 @@ describe('xpath(expression: string): (this: Document, node: Node) => Iterable<No
     `.trim())[0] as Element
     const target = root.querySelector('#test')
 
-    const result = xpath('.//*[@id="test"]').call(document, root)
-    const arrResult = toArray(result)
+    const iter = xpath('.//*[@id="test"]').call(document, root)
+    const result = toArray(iter)
 
-    expect(result).toBeIterable()
-    expect(arrResult).toEqual([target])
+    expect(result).toEqual([target])
   })
 })
