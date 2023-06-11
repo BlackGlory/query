@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.7](https://github.com/BlackGlory/query/compare/v0.5.6...v0.5.7) (2023-06-11)
+
+
+### Bug Fixes
+
+* export src ([5a348a2](https://github.com/BlackGlory/query/commit/5a348a29f44fd1f9e4af2816394873eee7b43bb7))
+
 ### [0.5.6](https://github.com/BlackGlory/query/compare/v0.5.5...v0.5.6) (2022-11-07)
 
 ### [0.5.5](https://github.com/BlackGlory/query/compare/v0.5.4...v0.5.5) (2022-08-01)
