@@ -1,13 +1,12 @@
-import '@test/polyfill'
-import { queryAll } from '@src/query-all'
-import { ISelector } from '@src/types'
-import { JSDOM } from 'jsdom'
+import { describe, it, test, expect, vi } from 'vitest'
+import { queryAll } from '@src/query-all.js'
+import { createDOMParser } from 'extra-dom'
 
 describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
   describe('selector returns undefined', () => {
     it('terminate and return an empty array', () => {
-      const selector1 = jest.fn().mockReturnValue(undefined)
-      const selector2 = jest.fn()
+      const selector1 = vi.fn().mockReturnValue(undefined)
+      const selector2 = vi.fn()
 
       const result = queryAll(selector1, selector2)
 
@@ -18,8 +17,8 @@ describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
 
   describe('selector returns undefined', () => {
     it('terminates and returns an empty array', () => {
-      const selector1 = jest.fn().mockReturnValue(undefined)
-      const selector2 = jest.fn()
+      const selector1 = vi.fn().mockReturnValue(undefined)
+      const selector2 = vi.fn()
 
       const result = queryAll(selector1, selector2)
 
@@ -31,8 +30,8 @@ describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
   describe('selector returns Element', () => {
     it('pipes selectors and returns the results', () => {
       const element = document.createElement('div')
-      const selector1 = jest.fn().mockReturnValue(element)
-      const selector2 = jest.fn().mockReturnValue(element)
+      const selector1 = vi.fn().mockReturnValue(element)
+      const selector2 = vi.fn().mockReturnValue(element)
 
       const result = queryAll(selector1, selector2)
 
@@ -47,8 +46,8 @@ describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
   describe('selector returns Iterable<Node>', () => {
     describe('selector returns empty Iterable<Node>', () => {
       it('terminates and return an empty array', () => {
-        const selector1 = jest.fn().mockReturnValue([])
-        const selector2 = jest.fn()
+        const selector1 = vi.fn().mockReturnValue([])
+        const selector2 = vi.fn()
 
         const result = queryAll(selector1, selector2)
 
@@ -63,8 +62,8 @@ describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
       it('pipe selectors and return the results', () => {
         const element1 = document.createElement('div')
         const element2 = document.createElement('div')
-        const selector1 = jest.fn().mockReturnValue([element1, element2])
-        const selector2 = jest.fn().mockReturnValue([element1])
+        const selector1 = vi.fn().mockReturnValue([element1, element2])
+        const selector2 = vi.fn().mockReturnValue([element1])
 
         const result = queryAll(selector1, selector2)
 
@@ -81,9 +80,9 @@ describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
   describe('selector is an array', () => {
     it('pipe sub-selectors and rturn the results', () => {
       const element = document.createElement('div')
-      const selector1 = jest.fn().mockReturnValue(element)
-      const selector2 = jest.fn().mockReturnValue(undefined)
-      const selector3 = jest.fn().mockReturnValue(element)
+      const selector1 = vi.fn().mockReturnValue(element)
+      const selector2 = vi.fn().mockReturnValue(undefined)
+      const selector3 = vi.fn().mockReturnValue(element)
 
       const result = queryAll(
         [selector1, selector2]
@@ -101,34 +100,31 @@ describe('queryAll<T extends Node>(...selectors: ISelector[]): T[]', () => {
   })
 
   test('custom context', () => {
-    const doc = createDocument()
-    const selector = jest.fn(setSelf) as ISelector
-    let self: unknown
+    const parser = createDOMParser()
+    const doc = parser.parseFromString('', 'text/html')
+    // 若使用`vi.fn()`会报错`SecurityError: localStorage is not available for opaque origins`.
+    let selectorCalls = 0
+    let selectorThis: unknown
+    let selectorArgs: unknown[] = []
 
-    queryAll.bind(doc)(selector)
+    queryAll.bind(doc)(
+      function (this: unknown, ...args: unknown[]): undefined {
+        selectorCalls++
+        selectorThis = this
+        selectorArgs = args
+      }
+    )
 
-    expect(selector).toBeCalledTimes(1)
-    expect(selector).toBeCalledWith(doc)
-    expect(self).toBe(doc)
-
-    function setSelf(this: unknown) {
-      self = this
-    }
-
-    function createDocument(): Document {
-      const jsdom = new JSDOM()
-      const { DOMParser } = jsdom.window
-      const parser = new DOMParser()
-      const document = parser.parseFromString('', 'text/html')
-      return document
-    }
+    expect(selectorCalls).toBe(1)
+    expect(selectorThis).toBe(doc)
+    expect(selectorArgs).toStrictEqual([doc])
   })
 })
 
 test('queryAll<T extends Node>(root: Node, ...selectors: ISelector[]): T[]', () => {
   const element1 = document.createElement('div')
   const element2 = document.createElement('div')
-  const selector = jest.fn().mockReturnValue(element2)
+  const selector = vi.fn().mockReturnValue(element2)
 
   const result = queryAll(element1, selector)
 
@@ -141,7 +137,7 @@ test('queryAll<T extends Node>(root: Iterable<Node>, ...selectors: ISelector[]):
   const element1 = document.createElement('div')
   const element2 = document.createElement('div')
   const element3 = document.createElement('div')
-  const selector = jest.fn().mockReturnValue(element3)
+  const selector = vi.fn().mockReturnValue(element3)
 
   const result = queryAll([element1, element2], selector)
 

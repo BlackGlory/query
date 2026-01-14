@@ -1,5 +1,5 @@
-import { ISelector } from './types'
-import { queryAll } from './query-all'
+import { ISelector } from './types.js'
+import { queryAll } from './query-all.js'
 
 export function query<T extends Node>(
   this: void | Document

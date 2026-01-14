@@ -1,12 +1,12 @@
-import '@test/polyfill'
-import { nextElementSibling } from '@selectors/next-element-sibling'
-import { parse } from 'extra-dom'
+import { describe, it, expect, vi } from 'vitest'
+import { nextElementSibling } from '@selectors/next-element-sibling.js'
+import { parseNodes } from 'extra-dom'
 
 describe('nextElementSibling(predicate: (node: Node, nth: number) => unknown): (node: Node) => T | undefined', () => {
   describe('sibling exists', () => {
     it('return Node', () => {
-      const nodes = parse('<div>0</div>.<div>1</div>.<div>2</div>')
-      const predicate = jest.fn().mockReturnValueOnce(false).mockReturnValueOnce(true)
+      const nodes = parseNodes('<div>0</div>.<div>1</div>.<div>2</div>')
+      const predicate = vi.fn().mockReturnValueOnce(false).mockReturnValueOnce(true)
 
       const result = nextElementSibling(predicate)(nodes[0])
 
@@ -19,8 +19,8 @@ describe('nextElementSibling(predicate: (node: Node, nth: number) => unknown): (
 
   describe('sibling does not exist', () => {
     it('return undefined', () => {
-      const nodes = parse('<div>0</div>.<div>1</div>.<div>2</div>')
-      const predicate = jest.fn().mockReturnValue(false)
+      const nodes = parseNodes('<div>0</div>.<div>1</div>.<div>2</div>')
+      const predicate = vi.fn().mockReturnValue(false)
 
       const result = nextElementSibling(predicate)(nodes[0])
 

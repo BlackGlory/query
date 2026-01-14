@@ -1,7 +1,7 @@
-import '@test/polyfill'
-import { xpath } from '@selectors/xpath'
-import { toArray } from 'iterable-operator'
-import { parse } from 'extra-dom'
+import { describe, it, expect } from 'vitest'
+import { xpath } from '@selectors/xpath.js'
+import { toArray } from '@blackglory/prelude'
+import { parseNodes } from 'extra-dom'
 import { getError } from 'return-style'
 
 describe('xpath(expression: string): (this: Document, node: Node) => Iterable<Node>', () => {
@@ -14,7 +14,7 @@ describe('xpath(expression: string): (this: Document, node: Node) => Iterable<No
   })
 
   it('return Iterable', () => {
-    const root = parse(`
+    const root = parseNodes(`
       <div>
         <div id="test"></div>
       </div>

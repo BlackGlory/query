@@ -1,11 +1,11 @@
-import '@test/polyfill'
-import { ancestor } from '@selectors/ancestor'
-import { parse } from 'extra-dom'
+import { describe, it, expect, vi } from 'vitest'
+import { ancestor } from '@selectors/ancestor.js'
+import { parseNodes } from 'extra-dom'
 
 describe('ancestor(predicate: (node: Node, nth: number) => unknown): (node: Node) => T | undefined', () => {
   describe('ancestor exists', () => {
     it('return Node', () => {
-      const root = parse(`
+      const root = parseNodes(`
         <div>3
           <div id="c">2
             <div></div>
@@ -21,7 +21,7 @@ describe('ancestor(predicate: (node: Node, nth: number) => unknown): (node: Node
       const a = root.querySelector('#a')!
       const b = root.querySelector('#b')!
       const c = root.querySelector('#c')!
-      const predicate = jest.fn().mockReturnValueOnce(false).mockReturnValueOnce(true)
+      const predicate = vi.fn().mockReturnValueOnce(false).mockReturnValueOnce(true)
 
       const result = ancestor(predicate)(a)
 
@@ -34,7 +34,7 @@ describe('ancestor(predicate: (node: Node, nth: number) => unknown): (node: Node
 
   describe('ancestor does not exist', () => {
     it('return undefined', () => {
-      const root = parse(`
+      const root = parseNodes(`
         <div>3
           <div id="c">2
             <div></div>
@@ -50,7 +50,7 @@ describe('ancestor(predicate: (node: Node, nth: number) => unknown): (node: Node
       const a = root.querySelector('#a')!
       const b = root.querySelector('#b')!
       const c = root.querySelector('#c')!
-      const predicate = jest.fn().mockReturnValue(false)
+      const predicate = vi.fn().mockReturnValue(false)
 
       const result = ancestor(predicate)(a)
 

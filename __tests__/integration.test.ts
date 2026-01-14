@@ -1,5 +1,5 @@
-import '@test/polyfill'
-import { query, css, xpath } from '@src/index'
+import { test, expect } from 'vitest'
+import { query, css, xpath } from '@src/index.js'
 
 test('css', () => {
   document.body.innerHTML = `

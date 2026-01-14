@@ -1,13 +1,13 @@
-import '@test/polyfill'
-import { followingSiblings } from '@selectors/following-siblings'
-import { parse } from 'extra-dom'
-import { toArray } from 'iterable-operator'
+import { describe, it, expect, vi } from 'vitest'
+import { followingSiblings } from '@selectors/following-siblings.js'
+import { parseNodes } from 'extra-dom'
+import { toArray } from '@blackglory/prelude'
 
 describe('followingSiblings(predicate: (node: ChildNode, nth: number) => unknown): (node: Node) => Iterable<T>', () => {
   describe('sibling exists', () => {
     it('return Node', () => {
-      const nodes = parse('<div>0</div> 1 <div>2</div>')
-      const predicate = jest.fn().mockReturnValueOnce(false).mockReturnValueOnce(true)
+      const nodes = parseNodes('<div>0</div> 1 <div>2</div>')
+      const predicate = vi.fn().mockReturnValueOnce(false).mockReturnValueOnce(true)
 
       const iter = followingSiblings(predicate)(nodes[0])
       const result = toArray(iter)
@@ -21,8 +21,8 @@ describe('followingSiblings(predicate: (node: ChildNode, nth: number) => unknown
 
   describe('sibling does not exist', () => {
     it('return undefined', () => {
-      const nodes = parse('<div>0</div> 1 <div>2</div>')
-      const predicate = jest.fn().mockReturnValue(false)
+      const nodes = parseNodes('<div>0</div> 1 <div>2</div>')
+      const predicate = vi.fn().mockReturnValue(false)
 
       const iter = followingSiblings(predicate)(nodes[0])
       const result = toArray(iter)

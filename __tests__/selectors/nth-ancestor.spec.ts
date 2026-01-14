@@ -1,11 +1,11 @@
-import '@test/polyfill'
-import { nthAncestor } from '@selectors/nth-ancestor'
-import { parse } from 'extra-dom'
+import { describe, it, expect } from 'vitest'
+import { nthAncestor } from '@selectors/nth-ancestor.js'
+import { parseNodes } from 'extra-dom'
 
 describe('nthAncestor(nth: numberr): (node: Node) => T | undefined', () => {
   describe('ancestor exists', () => {
     it('returns Node', () => {
-      const root = parse(`
+      const root = parseNodes(`
         <div>
           <div id="c">
             <div></div>
@@ -30,7 +30,7 @@ describe('nthAncestor(nth: numberr): (node: Node) => T | undefined', () => {
 
   describe('ancestor does not exist', () => {
     it('return undefined', () => {
-      const root = parse(`
+      const root = parseNodes(`
         <div>
           <div id="c">
             <div></div>

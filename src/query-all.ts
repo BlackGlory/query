@@ -1,8 +1,6 @@
-import { isArray, isIterable, isNull, isUndefined, isFunction } from '@blackglory/prelude'
+import { isArray, isIterable, isNull, isUndefined, isFunction, pipe, toArray } from '@blackglory/prelude'
 import { isDocument } from 'extra-dom'
-import { ISelector } from './types'
-import { pipe } from 'extra-utils'
-import { toArray } from 'iterable-operator'
+import { ISelector } from './types.js'
 
 export function queryAll<T extends Node>(
   this: void | Document
@@ -17,33 +15,39 @@ export function queryAll<T extends Node>(this: void | Document, ...args:
 | [root: Node | Iterable<Node>, ...selectors: ISelector[]]
 | [...selectors: [ISelector, ...ISelector[]]]
 ): T[] {
-  const context = isDocument(this) ? this : document
+  const context = isDocument(this)
+                ? this
+                : document
 
   if (isSelector(args[0])) {
     const [selector, ...selectors] = args
     const parents = [context]
 
-    const results = pipe(
+    const results: T[] = pipe(
       parents
-    , (results: Iterable<Document>) => process.call(context, results, selector)
+    , (results: Iterable<Node>) => process.call(context, results, selector)
     , ...selectors.map(selector => {
         return (results: Iterable<Node>) => process.call(context, results, selector)
       })
+    , toArray
     )
 
-    return toArray(results) as T[]
+    return results
   } else {
     const [root, ...selectors] = args
-    const parents = isIterable(root) ? root: [root]
+    const parents = isIterable(root)
+                  ? root
+                  : [root]
 
-    const results = pipe(
+    const results: T[] = pipe(
       parents
     , ...selectors.map(selector => {
         return (results: Iterable<Node>) => process.call(context, results, selector)
       })
+    , toArray
     )
 
-    return toArray(results) as T[]
+    return results
   }
 }
 

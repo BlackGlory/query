@@ -1,12 +1,12 @@
-import '@test/polyfill'
-import { previousSibling } from '@selectors/previous-sibling'
-import { parse } from 'extra-dom'
+import { describe, it, expect, vi } from 'vitest'
+import { previousSibling } from '@selectors/previous-sibling.js'
+import { parseNodes } from 'extra-dom'
 
 describe('previousSibling(predicate: (node: Node, nth: number) => unknown): (node: Node) => T | undefined', () => {
   describe('sibling exists', () => {
     it('return Node', () => {
-      const nodes = parse('<div>2</div>1<div>0</div>')
-      const predicate = jest.fn().mockReturnValueOnce(false).mockReturnValueOnce(true)
+      const nodes = parseNodes('<div>2</div>1<div>0</div>')
+      const predicate = vi.fn().mockReturnValueOnce(false).mockReturnValueOnce(true)
 
       const result = previousSibling(predicate)(nodes[2])
 
@@ -19,8 +19,8 @@ describe('previousSibling(predicate: (node: Node, nth: number) => unknown): (nod
 
   describe('sibling does not exist', () => {
     it('return undefined', () => {
-      const nodes = parse('<div>2</div>1<div>0</div>')
-      const predicate = jest.fn().mockReturnValue(false)
+      const nodes = parseNodes('<div>2</div>1<div>0</div>')
+      const predicate = vi.fn().mockReturnValue(false)
 
       const result = previousSibling(predicate)(nodes[2])
 

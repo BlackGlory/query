@@ -1,11 +1,11 @@
-import '@test/polyfill'
-import { css } from '@selectors/css'
-import { toArray } from 'iterable-operator'
-import { parse } from 'extra-dom'
+import { describe, it, expect } from 'vitest'
+import { css } from '@selectors/css.js'
+import { toArray } from '@blackglory/prelude'
+import { parseNodes } from 'extra-dom'
 
 describe('css<T extends Element>(selector: string): (node: Node) => Iterable<T>', () => {
   it('return Function', () => {
-    const root = parse(`
+    const root = parseNodes(`
       <div>
         <div id="test">
         </div>
